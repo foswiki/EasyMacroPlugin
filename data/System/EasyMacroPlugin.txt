@@ -1,0 +1,122 @@
+%META:TOPICINFO{author="micha" comment="reprev" date="1257245918" format="1.1" reprev="1.2" version="1.2"}%
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Description
+This plugin allows to implement a %MACRO in pure TML (topic markup language).
+Normally, you'd have to write a perl extension for each extension and call the
+internal =Foswiki::Func::registerTagHandler()= to register a perl handler to be called for this %MACRO.
+
+Using this plugin you can do the same but register a !TopicFunction to be executed.
+This is a way to create convenient shortcuts of parametrized %INCLUDEs.
+
+See the related discussion at Foswiki:Development/ParameterizedVariables
+
+---++ Example
+For example, create a topic !GreetUser with the following content:
+%JQREQUIRE{"chili"}%
+<verbatim class="tml">
+%STARTINCLUDE%
+
+Hello %user%, have a nice day.
+
+%STOPINCLUDE%
+</verbatim>
+
+Then you can make use of this !TopicFunction writing
+<verbatim class="tml">
+%INCLUDE{"GreetUser" user="Ralph"}%
+</verbatim>
+
+and get a
+
+<verbatim class="tml">
+Hello Ralph, have a nice day.
+</verbatim>
+
+With %TOPIC%, you can now register the !GreetUser as a macro:
+<verbatim class="tml">
+%REGISTERMACRO{"GREETUSER" topic="GreetUser" param="user" user="Rebeka"}%
+</verbatim>
+
+and simply write
+<verbatim class="tml">
+%GREETUSER{"Ralph"}%
+</verbatim>
+
+to do the same.
+The unnamed parameter to %GREETUSER is =user=. When the 
+=user= parameter is not specified, it defaults to =Rebeka=. So a 
+
+<verbatim class="tml">
+%GREETUSER%
+</verbatim>
+
+will greet Rebeka instead.
+
+---++ The EASYMACROS preference setting
+A complete set of !TopicFunctions can be registered using the preference variable EASYMACROS. So add 
+
+<verbatim class="tml">   * Set EASYMACROS = GreetUser</verbatim>
+
+to your !WebPreferences, !SitePreferences or user topic. This is a list of all macros to be registered for all of the scope of the preference variable. Each listed !TopicFunction must have a =registration= section containing the %REGISTERMACRO statement to establish the new macro. So our !GreetUser !TopicFunction will be completed using:
+
+<verbatim class="tml">
+%STARTINCLUDE%
+
+Hello %user%, have a nice day.
+
+%STOPINCLUDE%
+
+%STARTSECTION{"registration"}%
+
+%REGISTERMACRO{"GREETUSER" topic="GreetUser" param="user" user="Rebeka"}%
+
+%ENDSECTION{"registration"}%
+</verbatim>
+
+---++ Syntax of REGISTERMACRO
+| *Parameter* | *Description* | *Default* |
+| "&lt;name>" | name of macro to be registered | |
+| format="..." | format string to define the MACRO inline; can't be used together with =topic= | |
+| topic="..." | topic implementing the MACRO; can't be used togther with =format= | current topic |
+| web="..." | web containing the =topic= | current web |
+| param="..." | name of the variable to bind the unnamed parameter of the MACRO to, e.g. with a %<nop>REGISTERMACRO{"MACRO" format="... $VAR ..." param="VAR"}% a call like %<nop>MACRO{"foo"}% will bind VAR=foo to the format expression | |
+| warn="on/off" | set this to =off= to surpress the warning message when trying to redefine an already known %MACRO or preference variable |
+
+=REGISTERMACRO= can be called in two modes
+
+   1 format-mode
+   1 topic-mode
+
+In format-mode the new MACRO is implemented within the =format= parameter of the REGISTERMACRO itself. This is usefull for small implementations. 
+In topic-mode, REGISTERMACRO is called with a =topic= parameter to specify which topic implements the macro.
+Note, that variables in =format= are expanded using a =$VAR= notation, wherease in topic-mode real variables are instantiated using the =%<nop>VAR%= notation.
+
+---++ Installation Instructions
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+Many thanks to the following sponsors for supporting this work:
+   * [[http://www.psi.ch/][Paul Scherrer Institute]]
+
+<!--
+One line description, required for extensions repository catalog.
+BuildContrib will fill in the SHORTDESCRIPTION with the value of
+$SHORTDESCRIPTION from the .pm module, or you can redefine it here if you
+prefer.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+|  Author(s): | Foswiki:Main/MichaelDaum |
+|  Copyright &copy;: | 2009, Michael Daum http://michaeldaumconsulting.com |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  3 Nov 2009: | initial release |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
