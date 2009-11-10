@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1257245918" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1257245918" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
@@ -116,7 +116,8 @@ prefer.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  3 Nov 2009: | initial release |
+|  10 Nov 2009: | Item2343: fixed registration of macros defined in other webs |
+|  03 Nov 2009: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |

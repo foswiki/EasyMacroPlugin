@@ -18,7 +18,7 @@ use Foswiki::Func ();
 use Foswiki::Attrs ();
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.1';
+our $RELEASE = '1.11';
 our $SHORTDESCRIPTION = 'Write %MACROS in pure topic markup language';
 our $NO_PREFS_IN_TOPIC = 1;
 our $baseWeb;
@@ -31,6 +31,7 @@ sub initPlugin {
 
   Foswiki::Func::registerTagHandler('REGISTERMACRO', \&registerMacroHandler);
   $doneInit = 0;
+
   return 1;
 }
 
@@ -43,11 +44,14 @@ sub beforeCommonTagsHandler {
   # process EASYMACROS preference
   my $easyMacros = Foswiki::Func::getPreferencesValue('EASYMACROS') || '';
   my $tmlFormat = $Foswiki::cfg{EasyMacroPlugin}{Registration} ||
-    '%INCLUDE{"$topic" section="registration" warn="off"}%';
+    '%INCLUDE{"$web.$topic" section="registration" warn="off"}%';
 
   my $tml = '';
+  my $web;
   foreach my $topic (split(/\s*,\s*/, $easyMacros)) {
     my $line = $tmlFormat;
+    ($web, $topic) = Foswiki::Func::normalizeWebTopicName($baseWeb, $topic);
+    $line =~ s/\$web/$web/g;
     $line =~ s/\$topic/$topic/g;
     $tml .= $line;
   }
@@ -117,7 +121,7 @@ sub registerMacroHandler {
     ($theWeb, $theTopic) = Foswiki::Func::normalizeWebTopicName($theWeb, $theTopic);
 
     my $executeFormat = $Foswiki::cfg{EasyMacroPlugin}{Execute}
-      || '%INCLUDE{"$topic" warn="off" $params}%';
+      || '%INCLUDE{"$web.$topic" warn="off" $params}%';
 
     # register markup using a closure handler
     Foswiki::Func::registerTagHandler(
@@ -139,6 +143,7 @@ sub registerMacroHandler {
         $tml =~ s/\$web/$theWeb/g;
         $tml =~ s/\$topic/$theTopic/g;
         $tml =~ s/\$params/$innerParams/g;
+
         return $tml;
       }
     );
