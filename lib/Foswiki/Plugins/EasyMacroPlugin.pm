@@ -18,7 +18,7 @@ use Foswiki::Func ();
 use Foswiki::Attrs ();
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.12';
+our $RELEASE = '1.20';
 our $SHORTDESCRIPTION = 'Write %MACROS in pure topic markup language';
 our $NO_PREFS_IN_TOPIC = 1;
 our $baseWeb;
