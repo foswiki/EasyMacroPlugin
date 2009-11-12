@@ -116,6 +116,7 @@ prefer.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  12 Nov 2009: | Item8325: unregistering easy-macros in persistent perl environmens; made persistent macros an optimization flag |
 |  10 Nov 2009: | Item2343: fixed registration of macros defined in other webs |
 |  03 Nov 2009: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |

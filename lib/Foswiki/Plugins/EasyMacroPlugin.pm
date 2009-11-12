@@ -18,21 +18,37 @@ use Foswiki::Func ();
 use Foswiki::Attrs ();
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.11';
+our $RELEASE = '1.12';
 our $SHORTDESCRIPTION = 'Write %MACROS in pure topic markup language';
 our $NO_PREFS_IN_TOPIC = 1;
 our $baseWeb;
 our $baseTopic;
 our $doneInit;
+our @registeredMacros;
+
+use constant DEBUG => 0; # toggle me
 
 ###############################################################################
 sub initPlugin {
   ($baseTopic, $baseWeb) = @_;
 
   Foswiki::Func::registerTagHandler('REGISTERMACRO', \&registerMacroHandler);
-  $doneInit = 0;
+  $doneInit = 0 unless $Foswiki::cfg{EasyMacroPlugin}{PersistentMacros};
 
   return 1;
+}
+
+###############################################################################
+# SMELL: I'd prefer a proper finishHandler, alas it does not exist yet
+sub modifyHeaderHandler {
+
+  return if $Foswiki::cfg{EasyMacroPlugin}{PersistentMacros};
+
+  foreach my $name (@registeredMacros) {
+    print STDERR "unregistering $name\n" if DEBUG;
+    delete $Foswiki::functionTags{$name}; # there's no Func api for this 
+  }
+  undef @registeredMacros;
 }
 
 ###############################################################################
@@ -74,6 +90,10 @@ sub registerMacroHandler {
     return '' if $theWarn ne 'on';
     return "<span class='foswikiAlert'>ERROR: can't redefine $theName</span>";
   }
+
+  # remember tags so that we can unregister them at the end of th rendering loop
+  push @registeredMacros, $theName;
+  print STDERR "registering $theName\n" if DEBUG;
 
   my $theFormat = $params->{format};
   my $theDefaultParam = $params->{param};

@@ -16,5 +16,11 @@ $Foswiki::cfg{EasyMacroPlugin}{Registration} = '%INCLUDE{"$web.$topic" section="
 # case you installed the Foswiki:Extensions/DBCachePlugin
 $Foswiki::cfg{EasyMacroPlugin}{Execute} = '%INCLUDE{"$web.$topic" warn="off" $params}%';
 
+# **BOOLEAN**
+# Persistent macros. When there are only global easy-macros defined via SitePreferenes then you can enable this flag
+# for a bit of extra performance on persistent-perl environments (e.g. mod_perl, fastcgi). Once an easy-macro is 
+# registered it will remain in memory for the lifetime of the perl backend. Leave it disabled if unsure.
+$Foswiki::cfg{EasyMacroPlugin}{PersistentMacros} = 0;
+
 1;
 
