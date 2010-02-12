@@ -1,6 +1,10 @@
 %META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1257245918" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
 
 %TOC%
 
@@ -102,20 +106,13 @@ Note, that variables in =format= are expanded using a =$VAR= notation, wherease 
 Many thanks to the following sponsors for supporting this work:
    * [[http://www.psi.ch/][Paul Scherrer Institute]]
 
-<!--
-One line description, required for extensions repository catalog.
-BuildContrib will fill in the SHORTDESCRIPTION with the value of
-$SHORTDESCRIPTION from the .pm module, or you can redefine it here if you
-prefer.
-   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
--->
-
 |  Author(s): | Foswiki:Main/MichaelDaum |
-|  Copyright &copy;: | 2009, Michael Daum http://michaeldaumconsulting.com |
+|  Copyright &copy;: | 2009-2010, Michael Daum http://michaeldaumconsulting.com |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  12 Feb 2010: | Item8510: forward compatibility for Foswiki >= 1.1 |
 |  12 Nov 2009: | Item8325: unregistering easy-macros in persistent perl environmens; made persistent macros an optimization flag |
 |  10 Nov 2009: | Item2343: fixed registration of macros defined in other webs |
 |  03 Nov 2009: | initial release |

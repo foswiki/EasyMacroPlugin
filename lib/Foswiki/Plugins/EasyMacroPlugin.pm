@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# EasyMacroPlugin is Copyright (C) 2008 Foswiki Contributors. 
+#  Copyright 2009-2010, Michael Daum http://michaeldaumconsulting.com 
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@ use Foswiki::Func ();
 use Foswiki::Attrs ();
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.20';
+our $RELEASE = '1.22';
 our $SHORTDESCRIPTION = 'Write %MACROS in pure topic markup language';
 our $NO_PREFS_IN_TOPIC = 1;
 our $baseWeb;
@@ -47,6 +47,7 @@ sub modifyHeaderHandler {
   foreach my $name (@registeredMacros) {
     print STDERR "unregistering $name\n" if DEBUG;
     delete $Foswiki::functionTags{$name}; # there's no Func api for this 
+    delete $Foswiki::macros{$name}; # same for Foswiki >= 1.1
   }
   undef @registeredMacros;
 }
@@ -66,6 +67,7 @@ sub beforeCommonTagsHandler {
   my $web;
   foreach my $topic (split(/\s*,\s*/, $easyMacros)) {
     my $line = $tmlFormat;
+    $topic =~ s/^\[\[(.*?)\]\].*$/$1/g;
     ($web, $topic) = Foswiki::Func::normalizeWebTopicName($baseWeb, $topic);
     $line =~ s/\$web/$web/g;
     $line =~ s/\$topic/$topic/g;
@@ -85,7 +87,8 @@ sub registerMacroHandler {
   return '' unless $theName;
 
   # check if it is already a known macro
-  if (defined($Foswiki::functionTags{$theName}) || 
+  if (defined($Foswiki::functionTags{$theName}) || # Foswiki < 1.1
+      defined($Foswiki::macros{$theName}) || # Foswiki >= 1.1
       defined(Foswiki::Func::getPreferencesValue($theName))) {
     return '' if $theWarn ne 'on';
     return "<span class='foswikiAlert'>ERROR: can't redefine $theName</span>";
