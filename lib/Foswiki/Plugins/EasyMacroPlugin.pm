@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-#  Copyright 2009-2010, Michael Daum http://michaeldaumconsulting.com 
+#  Copyright 2009-2011, Michael Daum http://michaeldaumconsulting.com 
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@ use Foswiki::Func ();
 use Foswiki::Attrs ();
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.22';
+our $RELEASE = '1.23';
 our $SHORTDESCRIPTION = 'Write %MACROS in pure topic markup language';
 our $NO_PREFS_IN_TOPIC = 1;
 our $baseWeb;
@@ -160,6 +160,8 @@ sub registerMacroHandler {
         }
 
         $innerParams = bless({ %$params, %$innerParams }, 'Foswiki::Attrs');
+
+        delete $innerParams->{_DEFAULT};
         $innerParams = $innerParams->stringify;
 
         my $tml = $executeFormat;
