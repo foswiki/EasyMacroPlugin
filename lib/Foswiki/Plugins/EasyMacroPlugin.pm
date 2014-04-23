@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-#  Copyright 2009-2011, Michael Daum http://michaeldaumconsulting.com 
+#  Copyright 2009-2014, Michael Daum http://michaeldaumconsulting.com 
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -17,7 +17,7 @@ use Foswiki ();
 use Foswiki::Func ();
 use Foswiki::Attrs ();
 
-our $VERSION = '$Rev$';
+our $VERSION = '1.23';
 our $RELEASE = '1.23';
 our $SHORTDESCRIPTION = 'Write %MACROS in pure topic markup language';
 our $NO_PREFS_IN_TOPIC = 1;
@@ -26,7 +26,7 @@ our $baseTopic;
 our $doneInit;
 our @registeredMacros;
 
-use constant DEBUG => 0; # toggle me
+use constant TRACE => 0; # toggle me
 
 ###############################################################################
 sub initPlugin {
@@ -45,7 +45,7 @@ sub modifyHeaderHandler {
   return if $Foswiki::cfg{EasyMacroPlugin}{PersistentMacros};
 
   foreach my $name (@registeredMacros) {
-    print STDERR "unregistering $name\n" if DEBUG;
+    print STDERR "unregistering $name\n" if TRACE;
     delete $Foswiki::functionTags{$name}; # there's no Func api for this 
     delete $Foswiki::macros{$name}; # same for Foswiki >= 1.1
   }
@@ -96,7 +96,7 @@ sub registerMacroHandler {
 
   # remember tags so that we can unregister them at the end of th rendering loop
   push @registeredMacros, $theName;
-  print STDERR "registering $theName\n" if DEBUG;
+  print STDERR "registering $theName\n" if TRACE;
 
   my $theFormat = $params->{format};
   my $theDefaultParam = $params->{param};
