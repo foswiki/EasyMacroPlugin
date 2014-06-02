@@ -112,6 +112,7 @@ Many thanks to the following sponsors for supporting this work:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  02 Jun 2014: | Item12929: fixed incorrectly passed parameters with a zero |
 |  18 Jul 2011: | Item10981: delete _DEFAULT from params when constructing the easy-macro call |
 |  12 Feb 2010: | Item8510: forward compatibility for Foswiki >= 1.1 |
 |  12 Nov 2009: | Item8325: unregistering easy-macros in persistent perl environmens; made persistent macros an optimization flag |

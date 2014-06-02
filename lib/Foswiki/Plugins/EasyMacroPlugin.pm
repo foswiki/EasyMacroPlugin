@@ -17,8 +17,8 @@ use Foswiki ();
 use Foswiki::Func ();
 use Foswiki::Attrs ();
 
-our $VERSION = '1.23';
-our $RELEASE = '1.23';
+our $VERSION = '1.24';
+our $RELEASE = '1.24';
 our $SHORTDESCRIPTION = 'Write %MACROS in pure topic markup language';
 our $NO_PREFS_IN_TOPIC = 1;
 our $baseWeb;
@@ -127,7 +127,8 @@ sub registerMacroHandler {
             if $key eq $Foswiki::Attrs::ERRORKEY
               || $key eq $Foswiki::Attrs::RAWKEY
               || $key eq $Foswiki::Attrs::DEFAULTKEY;
-          my $val = $$innerParams{$key} || '';
+          my $val = $$innerParams{$key};
+          $val = '' unless defined $val;
           $line =~ s/\$$key\b/$val/g;
         }
 
