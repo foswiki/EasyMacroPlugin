@@ -1,10 +1,6 @@
 %META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1257245918" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
-<!--
-   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
--->
-
 
 %TOC%
 
@@ -102,22 +98,28 @@ Note, that variables in =format= are expanded using a =$VAR= notation, wherease 
 ---++ Installation Instructions
 %$INSTALL_INSTRUCTIONS%
 
----++ Info
-Many thanks to the following sponsors for supporting this work:
-   * [[http://www.psi.ch/][Paul Scherrer Institute]]
+---++ Dependencies
+%$DEPENDENCIES%
 
-|  Author(s): | Foswiki:Main/MichaelDaum |
-|  Copyright &copy;: | 2009-2014, Michael Daum http://michaeldaumconsulting.com |
-|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
-|  Release: | %$RELEASE% |
-|  Version: | %$VERSION% |
-|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+---++ Change History
+
+%TABLE{columnwidths="7em" tablewidth="100%"}%
 |  02 Jun 2014: | Item12929: fixed incorrectly passed parameters with a zero |
 |  18 Jul 2011: | Item10981: delete _DEFAULT from params when constructing the easy-macro call |
 |  12 Feb 2010: | Item8510: forward compatibility for Foswiki >= 1.1 |
 |  12 Nov 2009: | Item8325: unregistering easy-macros in persistent perl environmens; made persistent macros an optimization flag |
 |  10 Nov 2009: | Item2343: fixed registration of macros defined in other webs |
 |  03 Nov 2009: | initial release |
-|  Dependencies: | %$DEPENDENCIES% |
-|  Home page: | Foswiki:Extensions/%TOPIC% |
-|  Support: | Foswiki:Support/%TOPIC% |
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="Author" title="Author" value="Michael Daum"}%
+%META:FIELD{name="Copyright" title="Copyright" value="2009-2015, Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="Home" title="Home" value="http://foswiki.org/Extensions/EasyMacroPlugin"}%
+%META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
+%META:FIELD{name="Release" title="Release" value="%$RELEASE%"}%
+%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/EasyMacroPlugin"}%
+%META:FIELD{name="Support" title="Support" value="Foswiki:Support/%TOPIC%"}%
+%META:FIELD{name="Version" title="Version" value="%$VERSION%"}%

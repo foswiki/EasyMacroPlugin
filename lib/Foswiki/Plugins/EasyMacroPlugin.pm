@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-#  Copyright 2009-2014, Michael Daum http://michaeldaumconsulting.com 
+#  Copyright 2009-2015, Michael Daum http://michaeldaumconsulting.com 
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@ use Foswiki::Func ();
 use Foswiki::Attrs ();
 
 our $VERSION = '1.24';
-our $RELEASE = '1.24';
+our $RELEASE = '2 Jun 2014';
 our $SHORTDESCRIPTION = 'Write %MACROS in pure topic markup language';
 our $NO_PREFS_IN_TOPIC = 1;
 our $baseWeb;
